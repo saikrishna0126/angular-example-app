@@ -8,12 +8,16 @@ WORKDIR /app
 COPY package*.json ./
 
 # Copy the rest of the application
-COPY . .
 
 # Install dependencies including Angular CLI
 RUN npm install -g @angular/cli 
 
 # Copy the rest of the application
+COPY . .
+
+RUN  npm install –legacy-peer -deps 
+
+RUN ng build
 
 
 # Expose port 4200 (default port used by `ng serve`)
