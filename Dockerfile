@@ -15,7 +15,7 @@ RUN npm install -g @angular/cli
 # Copy the rest of the application
 COPY . .
 
-RUN npm install --legacy-peer-deps 
+RUN npm install --force 
 
 RUN ng build
 
