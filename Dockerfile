@@ -1,15 +1,14 @@
 # Use an appropriate Node.js base image
-FROM node:16-alpine
+FROM node:18-alpine
 
 # Set the working directory
 WORKDIR /app
 
 # Copy package.json and package-lock.json
 COPY package.json ./
-
+RUN npm install
 # Install Angular CLI globally
 RUN npm install -g @angular/cli
-RUN npm cache clean -f
 
 # Install project dependencies
 RUN npm install --legacy-peer-deps
@@ -18,7 +17,7 @@ RUN npm install --legacy-peer-deps
 COPY . .
 
 # Build the Angular application
-RUN ng build
+RUN npm run build
 
 # Expose port 4200 (default port used by `ng serve`)
 EXPOSE 4200
