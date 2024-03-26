@@ -6,6 +6,7 @@ WORKDIR /app
 
 # Copy package.json and package-lock.json
 COPY package.json ./
+COPY . .
 RUN npm install
 # Install Angular CLI globally
 RUN npm install -g @angular/cli
@@ -14,7 +15,7 @@ RUN npm install -g @angular/cli
 RUN npm install --legacy-peer-deps
 
 # Copy the rest of the application
-COPY . .
+
 
 # Build the Angular application
 RUN npm run build
