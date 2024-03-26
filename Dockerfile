@@ -1,5 +1,5 @@
 # Use an appropriate Node.js base image
-FROM node:16
+FROM node:16-alpine
 
 # Set the working directory
 WORKDIR /app
@@ -9,6 +9,7 @@ COPY package.json ./
 
 # Install Angular CLI globally
 RUN npm install -g @angular/cli
+RUN npm cache clean -f
 
 # Install project dependencies
 RUN npm install --legacy-peer-deps
