@@ -1,21 +1,21 @@
 # Use an appropriate Node.js base image
-FROM node:18-alpine
+FROM node:16-alpine
 
 # Set the working directory
 WORKDIR /app
 
 # Copy package.json and package-lock.json
 COPY package.json ./
+
+# Copy the rest of the application to the container
 COPY . .
+
 RUN npm install
 # Install Angular CLI globally
 RUN npm install -g @angular/cli
 
 # Install project dependencies
 RUN npm install --legacy-peer-deps
-
-# Copy the rest of the application
-
 
 # Build the Angular application
 RUN npm run build
@@ -24,4 +24,4 @@ RUN npm run build
 EXPOSE 4200
 
 # Command to start the Angular development server
-CMD ["ng", "serve", "--host", "0.0.0.0", "--port", "4200"]
+CMD ["ng", "serve"]
