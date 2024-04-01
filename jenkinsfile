@@ -4,6 +4,7 @@ pipeline {
       nodejs 'nodejs'
     }
     environment {
+        NODEJS_HOME = 'Path to nodejs installation directory'
         SONAR_SCANNER_HOME = '/opt/sonar-scanner' // Corrected path
         SONAR_PROJECT_KEY = 'jenkins'
     }
