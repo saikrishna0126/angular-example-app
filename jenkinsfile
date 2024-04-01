@@ -1,5 +1,8 @@
 pipeline {
     agent any
+    tools {
+      nodejs 'nodejs'
+    }
     environment {
         SONAR_SCANNER_HOME = '/opt/sonar-scanner' // Corrected path
         SONAR_PROJECT_KEY = 'jenkins'
