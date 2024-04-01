@@ -21,7 +21,7 @@ pipeline {
                 script {
                     withSonarQubeEnv(credentialsId: 'sonar-token') {
                         sh """
-                        ${.SONAR_SCANNER_HOME}/bin/sonar-scanner \
+                        ${SONAR_SCANNER_HOME}/bin/sonar-scanner \
                              -Dsonar.projectKey=${SONAR_PROJECT_KEY} \
                              -Dsonar.sources=src \
                              -Dsonar.host.url=${env.SONAR_SERVER_URL} \
