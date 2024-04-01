@@ -12,7 +12,7 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                dir('/var/lib/jenkins/workspace/angular@script/') {
+                dir('/angular@script/') {
                     sh 'npm install'
                     sh 'npm run build'
                 }
