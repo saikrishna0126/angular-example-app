@@ -1,17 +1,16 @@
-
 pipeline {
     agent any
-    }
+
     environment {
         NODEJS_HOME = tool name: 'nodejs', type: 'jenkins.plugins.nodejs.tools.NodeJSInstallation'
-        SONAR_SCANNER_HOME = '/opt/sonar-scanner' // Corrected path
+        SONAR_SCANNER_HOME = '/opt/sonar-scanner'
         SONAR_PROJECT_KEY = 'jenkins'
     }
 
     stages {
         stage('Build') {
             steps {
-                dir('/var/lib/jenkins/workspace/angular@script/') {
+                dir('/var/lib/jenkins/workspace/angular/') {
                     sh 'npm install'
                     sh 'npm run build'
                 }
