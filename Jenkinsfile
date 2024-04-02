@@ -1,37 +1,37 @@
 pipeline {
     agent any
-
     environment {
-        SONAR_SCANNER_HOME = '/opt/sonar-scanner'
-        SONAR_PROJECT_KEY = 'jenkins'
+        CHANGE_DIRECTORY = '/var/lib/jenkins/workspace/Angular-project/angular-example-app/'
+        //Sonarqube related environment variables
+        SONAR_PROJECT_KEY = 'angular_project'
+        SONAR_PROJECT_NAME = 'angular_pj'
+        SONAR_TOKEN = credentials('Sonar_Global_Token')
+        //Harbor related environment variables
+        HARBOR_REGISTRY_CREDENTIAL_ID = credentials('Harbor-registry')
+        HARBOR_REPOSITORY_NAME = 'projects'
+        //Docker related environment variables
+        DOCKER_BUILD = 'angular_pj:latest'
+        DOCKER_TAG = 'new-harbor2.duckdns.org/projects/angular_pj:latest'
+        DOCKER_PUSH = 'new-harbor2.duckdns.org/angular_pj:latest'
+        DOCKER_CONTAINER_NAME = 'angular_app'
+        DOCKER_PORT = '4200:4200'
     }
-
     tools {
-        nodejs 'nodejs'
+        nodejs "nodejs"
     }
-
-    stages {
-        stage('Build') {
+    stages{
+        stage('Install Dependencies and build') {
             steps {
+                    // Run npm install command
                 sh 'npm install'
                 sh 'npm run build'
             }
-        }
-
-        stage('Sonar Analysis') {
-            steps {
-                script {
-                    withSonarQubeEnv(credentialsId: 'sonarqube', installationName: 'sonarqube') {
-                        sh """
-                        ${SONAR_SCANNER_HOME}/bin/sonar-scanner \
-                             -Dsonar.projectKey=${SONAR_PROJECT_KEY} \
-                             -Dsonar.sources=src \
-                             -Dsonar.host.url=${SONAR_SERVER_URL} \
-                             -Dsonar.login=${SONAR_LOGIN}
-                        """
-                    }
+            post {
+                success {
+                    slackSend color: '#36a64f', message: "Dependencies and build Success - ${env.JOB_NAME} - ${env.BUILD_NUMBER}"
+                }
+                failure {
+                    slackSend color: '#ff0000', message: "Dependencies and build failed! - ${env.JOB_NAME} - ${env.BUILD_NUMBER}"
                 }
             }
         }
-    }
-}
