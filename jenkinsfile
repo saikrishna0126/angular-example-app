@@ -11,6 +11,7 @@ pipeline {
         stage('Build') {
             steps {
               dir('/var/lib/jenkins/workspace/angular') {
+                  sh 'rm -rf /var/lib/jenkins/workspace/angular@tmp'
                   sh 'node --version'
                   sh 'npm --version'
               }
