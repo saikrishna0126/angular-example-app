@@ -1,12 +1,12 @@
 pipeline {
     agent any
-
     environment {
-        PATH = "${tool 'nodejs'}/bin:$PATH"
         SONAR_SCANNER_HOME = '/opt/sonar-scanner'
         SONAR_PROJECT_KEY = 'jenkins'
-    }
-
+      }
+        tools {
+          nodejs 'nodejs'
+      }
     stages {
         stage('Build') {
             steps {
