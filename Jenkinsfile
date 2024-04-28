@@ -11,7 +11,7 @@ pipeline {
         //Docker related environment variables
         DOCKER_IMAGE= 'angular:latest'
         DOCKER_CONTAINER_NAME = 'angular'
-        DOCKER_CONTAINER_PORT = '8081:8080'
+        DOCKER_CONTAINER_PORT = '8081:80'
     }
     tools {
         nodejs "nodejs"
